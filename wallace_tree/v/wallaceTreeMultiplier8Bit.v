@@ -1,3 +1,7 @@
+// Oliver Huang & Jared Yoder: We are using this open source design as our
+// reference benchmark. We will be modifying this Wallace Tree multiplier
+// over several iterations into a HPAM approximate multiplier
+
 ////////////////////////////////////////////////////////////////////////
 //
 // Copyright (C) 2020 Akilesh Kannan <akileshkannan@gmail.com>
