@@ -11,7 +11,7 @@
 //
 ////////////////////////////////////////////////////////////////////////
 
-`default_nettype None
+//`default_nettype None
 
 `timescale 1ns/1ps
 
@@ -64,9 +64,14 @@ module wallaceTreeMultiplier8Bit (output[15:0] result, input[7:0] a, input[7:0] 
     FA result6_FA_2(result6_c_temp_2, result6_temp_2, wallaceTree[2][4], result6_temp_1, result5_c_temp_1);
     FA result6_FA_3(result6_c_temp_3, result6_temp_3, wallaceTree[3][3], result6_temp_2, result5_c_temp_2);
     FA result6_FA_4(result6_c_temp_4, result6_temp_4, wallaceTree[4][2], result6_temp_3, result5_c_temp_3);
-    FA result6_FA_5(result6_c_temp_5, a novel result7_temp_2, wallaceTree[2][5], result7_temp_1, result6_c_temp_1);
-    FA result7_FA_3(result7_c_temp_3, result7_temp
-`timescale 1ns/1ps_3, wallaceTree[3][4], result7_temp_2, result6_c_temp_2);
+    FA result6_FA_5(result6_c_temp_5, result6_temp_5, wallaceTree[5][1], result6_temp_4, result5_c_temp_4);
+    HA result6_HA_1(result6_c, result[6], wallaceTree[6][0], result6_temp_5);
+
+    // result[7]
+    wire result7_c_temp_1, result7_c_temp_2, result7_c_temp_3, result7_c_temp_4, result7_c_temp_5, result7_c_temp_6, result7_c, result7_temp_1, result7_temp_2, result7_temp_3, result7_temp_4, result7_temp_5, result7_temp_6;
+    FA result7_FA_1(result7_c_temp_1, result7_temp_1, wallaceTree[0][7], wallaceTree[1][6], result6_c);
+    FA result7_FA_2(result7_c_temp_2, result7_temp_2, wallaceTree[2][5], result7_temp_1, result6_c_temp_1);
+    FA result7_FA_3(result7_c_temp_3, result7_temp_3, wallaceTree[3][4], result7_temp_2, result6_c_temp_2);
     FA result7_FA_4(result7_c_temp_4, result7_temp_4, wallaceTree[4][3], result7_temp_3, result6_c_temp_3);
     FA result7_FA_5(result7_c_temp_5, result7_temp_5, wallaceTree[5][2], result7_temp_4, result6_c_temp_4);
     FA result7_FA_6(result7_c_temp_6, result7_temp_6, wallaceTree[6][1], result7_temp_5, result6_c_temp_5);

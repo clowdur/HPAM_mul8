@@ -20,7 +20,16 @@ module testbench;
   wallaceTreeMultiplier8Bit dut (.*);
 
   initial begin
-    a = 255; b = 255; #20
+    $display("\n\n"); #20;
+    a = 255; b = 255; #20;
+    $display("inputs: a:%d, b:%d", a, b); #20;
+    $display("result: %d\n", result); #20;
+    a = 17; b = 17; #20;
+    $display("inputs: a:%d, b:%d", a, b); #20;
+    $display("result: %d\n", result); #20;
+    a = 0; b = 0; #20;
+    $display("inputs: a:%d, b:%d", a, b); #20;
+    $display("result: %d\n", result); #20;
   end
 
 endmodule

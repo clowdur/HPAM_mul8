@@ -5,19 +5,10 @@ synthesis.inputs.input_files: [
   
 
   # Top level sources
-  "v/arithmetic_encoder.v",
-  "v/entropy_encoder.v",
+  "v/wallaceTreeMultiplier8Bit.v",
   # TODO: add GCD module path here!
-  "v/carry_propagation.v",
-  "v/control_unit.v",
-  "v/final_bits_generator.v",
-  "v/luts.v",
-  "v/LZC.v",
-  "v/stage_1.v",
-  "v/stage_2.v",
-  "v/stage_3.v",
-  "v/stage_4.v",
-  "v/top_registers_control.v"
+  "v/FA.v",
+  "v/HA.v"
 ]
 synthesis.inputs.input_files_meta: [append, subst]
 

@@ -28,20 +28,20 @@ set IO_MASTER_CLOCK_PERIOD 40
 #     [output_cell_rise_fall_difference_C]
 #     [output_cell_rise_fall_difference_D]
 
-bsg_chip_timing_constraint    \
-    ucsd_bsg_332              \
-    [get_ports p_reset_i]     \
-    [get_ports p_misc_L_4_i]  \
-    core_clk                  \
-    ${CORE_CLOCK_PERIOD}      \
-    [get_ports p_PLL_CLK_i]   \
-    master_io_clk             \
-    ${IO_MASTER_CLOCK_PERIOD} \
-    1                         \
-    1                         \
-    0                         \
-    0                         \
-    0                         \
-    0                         \
-    0 
+# bsg_chip_timing_constraint    \
+#     ucsd_bsg_332              \
+#     [get_ports p_reset_i]     \
+#     [get_ports p_misc_L_4_i]  \
+#     core_clk                  \
+#     ${CORE_CLOCK_PERIOD}      \
+#     [get_ports p_PLL_CLK_i]   \
+#     master_io_clk             \
+#     ${IO_MASTER_CLOCK_PERIOD} \
+#     1                         \
+#     1                         \
+#     0                         \
+#     0                         \
+#     0                         \
+#     0                         \
+#     0 
 

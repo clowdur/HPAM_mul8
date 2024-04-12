@@ -1,7 +1,7 @@
 # cfg.yml - Main hammer config file
 
 # Set top level for synthesis
-synthesis.inputs.top_module: "entropy_encoder"
+synthesis.inputs.top_module: "wallaceTreeMultiplier8Bit"
 
 # Don't synthesize these gate-level netlist modules
 synthesis.inputs.preserve_modules: []
@@ -22,8 +22,8 @@ vlsi.inputs:
   
   # Additional SDC files to read
   custom_sdc_files:
-    - "../../../ee477-hammer-cad/tcl/bsg_tag_timing.tcl"
-    - "../../../ee477-hammer-cad/tcl/bsg_chip/bsg_chip_timing_constraint.tcl"
+    #- "../../../ee477-hammer-cad/tcl/bsg_tag_timing.tcl"
+    #- "../../../ee477-hammer-cad/tcl/bsg_chip/bsg_chip_timing_constraint.tcl"
     - "constraints.tcl"
   custom_sdc_files_meta: prependlocal # Prepend path of this config file!
 

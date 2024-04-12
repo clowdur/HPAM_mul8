@@ -1,5 +1,5 @@
 # Toplevel simulation module name
-sim.inputs.tb_name: "entropy_encoder_tb"
+sim.inputs.tb_name: "testbench"
 
 # Search directories for `include directives in simulations
 sim.inputs.tb_incdir: [
@@ -9,8 +9,8 @@ sim.inputs.tb_incdir_meta: [subst]
 
 # Additional source files for simulations
 sim.inputs.tb_input_files: [
-  "v/entropy_encoder_tb.sv",
-  "v/entropy_encoder.v",
+  "v/testbench.v",
+  "v/wallaceTreeMultiplier8Bit.v",
 ]
 sim.inputs.tb_input_files_meta: [subst]
 
