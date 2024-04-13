@@ -1,47 +1,38 @@
 # cfg.yml - Main hammer config file
 
+# List of all Verilog source files to include in this build.
+synthesis.inputs.input_files: [
+  "v/wallaceTreeMultiplier8Bit.v",
+  "v/FA.v",
+  "v/HA.v",
+]
+
+synthesis.inputs.input_files_meta: [append, subst]
+
 # Set top level for synthesis
 synthesis.inputs.top_module: "wallaceTreeMultiplier8Bit"
 
 # Don't synthesize these gate-level netlist modules
 synthesis.inputs.preserve_modules: []
 
-# Turn-off clock gating, issue with sky130 latch model in some clock gate cells
-# when coming out of x leading to failed simulations.
-synthesis.clock_gating_mode: ""
+# No clocks to constrain
+vlsi.inputs.clocks: []
 
-# par.innovus.floorplan_mode: "generateplusmanual"
-# par.innovus.floorplan_script_contents: 
-#   "create_fence -name guts/link_downstream -area 30 30 180 442 \n
-#    create_fence -name guts/link_upstream -area 420 30 470 363 \n"
+# Custom output loads (Default output pin load is 1.0 pF)
+# vlsi.inputs.output_loads:
+#   - {name: clk_o, load: 0.01} # (load unit pF)
 
-# Custom SDC constraints
-vlsi.inputs:
-  # You can add SDC constraints directly here (list of strings)
-  custom_sdc_constraints: []
-  
-  # Additional SDC files to read
-  custom_sdc_files:
-    #- "../../../ee477-hammer-cad/tcl/bsg_tag_timing.tcl"
-    #- "../../../ee477-hammer-cad/tcl/bsg_chip/bsg_chip_timing_constraint.tcl"
-    - "constraints.tcl"
-  custom_sdc_files_meta: prependlocal # Prepend path of this config file!
-
-  # Pin constraints: p_sdi_* on the left, p_sdo_* on the right, everything else on the bottom
-  pin.assignments: [
-    {pins: "*", layers: ["met2"], side: "bottom"}, # Default to bottom
-    {pins: "p_sdi_*", layers: ["met2"], side: "left"}, # Inputs
-    {pins: "p_sdo_*", layers: ["met2"], side: "right"}, # Outputs
-  ]
+# Custom SDC clock constraints
+#vlsi.inputs.custom_sdc_constraints:
+  # Disable timing through the reset gate (since it connects together a combinational loop!)
+  #- "set_disable_timing -from B -to Y CG/reset"
 
 # Placement Constraints
 vlsi.inputs.placement_constraints:
   - path: "TOP" # (this name isn't actually checked...)
     type: toplevel
-    # Define chip dimensions
-    width:  2000
-    height: 2000
+    width:  100
+    height: 100
     x: 0
     y: 0
     margins: {left: 0, right: 0, top: 0, bottom: 0}
-

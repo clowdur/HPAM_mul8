@@ -11,6 +11,8 @@ sim.inputs.tb_incdir_meta: [subst]
 sim.inputs.tb_input_files: [
   "v/testbench.v",
   "v/wallaceTreeMultiplier8Bit.v",
+  "v/HA.v",
+  "v/FA.v",
 ]
 sim.inputs.tb_input_files_meta: [subst]
 

@@ -4,11 +4,11 @@
 # Many constraints can be written directly into the Hammer config files. However, 
 # you may manually define constraints here as well.
 #
-# syn 4.634
-# par 4.250 0.06
-# TRY 4.21 VIOLATED 4.227 NEXT
-set CORE_CLOCK_PERIOD      7.716
-set IO_MASTER_CLOCK_PERIOD 40
+
+#create_clock -period 3.99 -name clk [get_pins CG/clk_o]
+
+# set CORE_CLOCK_PERIOD      7.716
+# set IO_MASTER_CLOCK_PERIOD 40
 
 # << arguments >>
 # bsg_chip_timing_constraint
