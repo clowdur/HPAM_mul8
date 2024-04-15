@@ -13,6 +13,7 @@ sim.inputs.tb_input_files: [
   "v/wallaceTreeMultiplier8Bit.v",
   "v/HA.v",
   "v/FA.v",
+  "v/mult_wrapper.v"
 ]
 sim.inputs.tb_input_files_meta: [subst]
 

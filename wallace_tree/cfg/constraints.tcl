@@ -5,6 +5,12 @@
 # you may manually define constraints here as well.
 #
 
+#virtual clock to find combinational delay
+#report_timing -unconstrained
+#create_clock -name VCLK -period 20
+
+#set_input_delay  10 -max -clock [get_clocks VCLK] [all_inputs]
+#set_output_delay 10 -max -clock [get_clocks VCLK] [all_outputs]
 #create_clock -period 3.99 -name clk [get_pins CG/clk_o]
 
 # set CORE_CLOCK_PERIOD      7.716

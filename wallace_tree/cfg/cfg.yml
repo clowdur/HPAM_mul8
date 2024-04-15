@@ -5,27 +5,29 @@ synthesis.inputs.input_files: [
   "v/wallaceTreeMultiplier8Bit.v",
   "v/FA.v",
   "v/HA.v",
+  "v/mult_wrapper.v"
 ]
 
 synthesis.inputs.input_files_meta: [append, subst]
 
 # Set top level for synthesis
-synthesis.inputs.top_module: "wallaceTreeMultiplier8Bit"
+synthesis.inputs.top_module: "mult_wrapper"
 
 # Don't synthesize these gate-level netlist modules
 synthesis.inputs.preserve_modules: []
 
 # No clocks to constrain
-vlsi.inputs.clocks: []
+#vlsi.inputs.clocks: []
 
-# Custom output loads (Default output pin load is 1.0 pF)
-# vlsi.inputs.output_loads:
-#   - {name: clk_o, load: 0.01} # (load unit pF)
-
-# Custom SDC clock constraints
-#vlsi.inputs.custom_sdc_constraints:
-  # Disable timing through the reset gate (since it connects together a combinational loop!)
-  #- "set_disable_timing -from B -to Y CG/reset"
+# Custom SDC constraints
+vlsi.inputs:
+  # You can add SDC constraints directly here (list of strings)
+  custom_sdc_constraints: []
+  
+  # Additional SDC files to read
+  custom_sdc_files:
+    - "constraints.tcl"
+  custom_sdc_files_meta: prependlocal # Prepend path of this config file!
 
 # Placement Constraints
 vlsi.inputs.placement_constraints:

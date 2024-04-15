@@ -8,7 +8,8 @@ synthesis.inputs.input_files: [
   "v/wallaceTreeMultiplier8Bit.v",
   # TODO: add GCD module path here!
   "v/FA.v",
-  "v/HA.v"
+  "v/HA.v",
+  "v/mult_wrapper.v"
 ]
 synthesis.inputs.input_files_meta: [append, subst]
 
