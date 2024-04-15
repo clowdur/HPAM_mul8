@@ -37,7 +37,8 @@ module testbench;
         a <= i; b <= j; @(posedge clk); @(posedge clk); @(posedge clk); //why do we need three cycles? investigate
         $display("inputs: a:%d, b:%d", a, b); 
         $display("result: %d  true: %.1f  error: %f\n", result, true_result, rel_error); 
-        tot_error += rel_error; //65536 iterations
+        if (rel_error < 0) tot_error -= rel_error;
+        else tot_error += rel_error; //65536 iterations
       end  
     end
 
