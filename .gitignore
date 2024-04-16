@@ -1,4 +1,7 @@
 build
+verdiLog
 *.log
 *.json
 *.nfs*
+*.conf
+*.rc

@@ -7,6 +7,12 @@
 
 module testbench;
 
+  /* Dump Test Waveform To VPD File */
+  initial begin
+    $fsdbDumpfile("waveform.fsdb");
+    $fsdbDumpvars();
+  end
+
   logic clk;
   logic [15:0] result; 
   logic [7:0] a, b;
@@ -34,7 +40,7 @@ module testbench;
     $write("%c[0m",27);
     for(i = 0; i < 2**8; i++) begin
       for (j = 0; j < 2**8; j++) begin
-        a <= i; b <= j; @(posedge clk); @(posedge clk); @(posedge clk); //why do we need three cycles? investigate
+        a <= i; b <= j; @(posedge clk); @(posedge clk); @(posedge clk); //3 cycles for update (1: load input reg D, 2: compute & load output reg D, 3: see output reg Q)
         $display("inputs: a:%d, b:%d", a, b); 
         $display("result: %d  true: %.1f  error: %f\n", result, true_result, rel_error); 
         if (rel_error < 0) tot_error -= rel_error;
