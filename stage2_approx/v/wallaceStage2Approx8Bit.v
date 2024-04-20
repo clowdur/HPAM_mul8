@@ -154,13 +154,13 @@ module wallaceStage2Approx8Bit (output[15:0] result, input[7:0] a, input[7:0] b)
     // L1
     FA result7_FA_1(result7_c_temp_f1, result7_temp_f1, wallaceTree[0][7], wallaceTree[1][6], wallaceTree[2][5]);
     FA result7_FA_2(result7_c_temp_f2, result7_temp_f2, wallaceTree[3][4], wallaceTree[4][3], wallaceTree[5][2]);
-    FA result7_HA_1(result7_c_temp_h1, result7_temp_h1, wallaceTree[6][1], wallaceTree[7][0]);
+    HA result7_HA_1(result7_c_temp_h1, result7_temp_h1, wallaceTree[6][1], wallaceTree[7][0]); // OLIVER BUG FIXED: DECLARED as FA instead of HA: i love verdi
     // L2
-    FA result7_FA_3(result7_c_temp_f3, result7_temp_f3, result7_temp_f1, result7_temp_f2, result7_temp_h1);
+    FA result7_FA_3(result7_c_temp_f3, result7_temp_f3, result7_temp_f1, result7_temp_f2, result7_temp_h1); 
     // L3
-    FA result7_FA_4(result7_c_temp_f4, result7_temp_f4, result7_temp_f3, result6_c_temp_f1, result6_c_temp_f2);
+    FA result7_FA_4(result7_c_temp_f4, result7_temp_f4, result7_temp_f3, result6_c_temp_f1, result6_c_temp_f2); 
     // L4
-    FA result7_HA_4(result7_c_temp_h4, result7_temp_h4, result7_temp_f4, result6_c_temp_f3);
+    FA result7_HA_4(result7_c_temp_h4, result7_temp_h4, result7_temp_f4, result6_c_temp_f3); 
     // LF RCA Node
     FA result7_FA_F(result7_c, result[7], result7_temp_h4, result6_c_temp_f4, result6_c);
     // reference code from open source wallace repo
