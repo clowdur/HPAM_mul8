@@ -1,0 +1,19 @@
+# src.yml - hammer source file config
+
+# List of all Verilog source files to include in this build.
+synthesis.inputs.input_files: [
+  
+
+  # Top level sources
+  "v/wallaceStage2Approx8Bit.v",
+  # TODO: add GCD module path here!
+  "v/FA.v",
+  "v/HA.v",
+  "v/mult_wrapper.v"
+]
+synthesis.inputs.input_files_meta: [append, subst]
+
+# Add synthesis input files to simulation inputs (Only for RTL sim)
+sim.inputs.input_files: synthesis.inputs.input_files
+sim.inputs.input_files_meta: [crossref, subst]
+
