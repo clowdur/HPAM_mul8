@@ -1,24 +1,26 @@
-// Approximate Full Adder
+// Full Adder
 // synthesizable
 // Oliver Huang and Jared Yoder
 
-module Approx_FA (output carry, output sum, input a, input b, input cin);
+module FA (output carry, output sum, input a, input b, input cin);
 
     // instantiating sum and carry primitives
-    assign carry = (a & b);
+    assign carry = (a & b) | (cin & (a | b));
     assign sum = (a ^ b ^ cin);
 endmodule
 
 
 // primitive carryOut (output Cout, input A, input B, input Cin);
 
-//     // Truth Table for approximate carry out
+//     // Truth Table for carry out
 //     table
 //       // A B Cin    Cout
 //          1 1  ?   :  1  ;
-//          1 0  ?   :  0  ;
-//          0 1  ?   :  0  ;
+//          1 ?  1   :  1  ;
+//          ? 1  1   :  1  ;
 //          0 0  ?   :  0  ;
+//          0 ?  0   :  0  ;
+//          ? 0  0   :  0  ;
 //     endtable
 // endprimitive
 
