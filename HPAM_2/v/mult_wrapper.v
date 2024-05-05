@@ -11,6 +11,6 @@ module mult_wrapper (output logic [15:0] Y, input logic [7:0] inA, input logic [
     Y <= result;
   end
 
-  wallaceStage2Approx8Bit multiply (.result(result), .a(a), .b(b));
+  HPAM_2 multiply (.result(result), .a(a), .b(b));
 
 endmodule

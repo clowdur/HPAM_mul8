@@ -5,11 +5,13 @@ synthesis.inputs.input_files: [
   
 
   # Top level sources
-  "v/wallaceStage2Approx8Bit.v",
+  "v/mult_wrapper.v",
   # TODO: add GCD module path here!
+  "v/HPAM_2.v",
+  "v/SRCA82.v",
+  "v/Approx_FA.v",
   "v/FA.v",
   "v/HA.v",
-  "v/mult_wrapper.v"
 ]
 synthesis.inputs.input_files_meta: [append, subst]
 

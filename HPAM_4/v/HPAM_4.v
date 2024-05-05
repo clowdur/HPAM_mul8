@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////////////
 //
 // Referenced "wallaceTreeMultiplier8Bit.v" by Akilesh Kannan <akileshkannan@gmail.com>
-// Modified to have HPAM approximation & optimization
+// Modified to have HPAM_4 approximation & optimization
 //
 // License: MIT
 //

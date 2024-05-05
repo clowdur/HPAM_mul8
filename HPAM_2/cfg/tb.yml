@@ -10,10 +10,12 @@ sim.inputs.tb_incdir_meta: [subst]
 # Additional source files for simulations
 sim.inputs.tb_input_files: [
   "v/testbench.v",
-  "v/wallaceStage2Approx8Bit.v",
-  "v/HA.v",
+  "v/mult_wrapper.v",
+  "v/HPAM_2.v",
+  "v/SRCA82.v",
+  "v/Approx_FA.v",
   "v/FA.v",
-  "v/mult_wrapper.v"
+  "v/HA.v",
 ]
 sim.inputs.tb_input_files_meta: [subst]
 

@@ -2,7 +2,9 @@
 
 # List of all Verilog source files to include in this build.
 synthesis.inputs.input_files: [
-  "v/wallaceStage2Approx8Bit.v",
+  "v/HPAM_2.v",
+  "v/SRCA82.v",
+  "v/Approx_FA.v",
   "v/FA.v",
   "v/HA.v",
   "v/mult_wrapper.v"
