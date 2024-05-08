@@ -33,15 +33,28 @@ module testbench;
   mult_wrapper dut (.Y(result), .inA(a), .inB(b), .clk(clk));
   
   integer i, j;
+  integer fd;
   initial tot_error = 0;
   initial begin
+    
+    // open lookup table file
+    fd = $fopen("LUT.txt", "w");
+    if (fd) $display("LUT file was opened successfully");
+    else $display("LUT file was not opened successfully");
+
     $write("%c[1;32m",27); $display("\nBegin: Multiplier Test Cases\n");
     $write("%c[0m",27);
     for(i = 0; i < 2**8; i++) begin
+      // write a newline to LUT if not the first row of results
+      if (i && fd) $fwrite(fd, "\n");
       for (j = 0; j < 2**8; j++) begin
         a <= i; b <= j; @(posedge clk); @(posedge clk); @(posedge clk); //3 cycles for update (1: load input reg D, 2: compute & load output reg D, 3: see output reg Q)
         $display("inputs: a:%d, b:%d", a, b); 
         $display("result: %d  true: %.1f  error: %f\n", result, true_result, rel_error); 
+
+        // write results to lookup table file
+        if (fd) $fwrite(fd, "%d ", result);
+        
         if (rel_error < 0) tot_error -= rel_error;
         else tot_error += rel_error; //65536 iterations
       end  
