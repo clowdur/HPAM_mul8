@@ -6,7 +6,7 @@
 #
 
 #virtual clock to find combinational delay
-create_clock -period 21 -name mclk [get_ports clk]
+create_clock -period 4 -name mclk [get_ports clk]
 #set_clock_uncertainty 0.276 [get_clocks core_clk]
 # set_input_delay  0.000 -clock core_clk [get_ports reset_i]
 # set_output_delay 0.000 -clock core_clk [get_ports data_o]
