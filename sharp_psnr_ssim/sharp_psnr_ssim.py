@@ -4,32 +4,32 @@
 # Adapted from matlab code provided by the HPAM researchers
 
 import cv2
-# from google.colab.patches import cv2_imshow
 import numpy as np
+# from google.colab.patches import cv2_imshow
+from skimage.metrics import structural_similarity as SSIM
 
-import math
-import cv2
 import os
+import math
+import skimage
 import argparse
 from tqdm import tqdm
 from matplotlib import pyplot as plt
 from skimage.util import random_noise
-from skimage.metrics import structural_similarity as SSIM
-import skimage
-
 
 lut = []
-lutname = 'LUT4.txt'
+# lutname = 'LUT4.txt'
 # lutname = 'LUT2.txt'
-# lutname = 'LUTW.txt'
+lutname = 'LUT2.txt'
 with open(lutname) as f:
     for line in f:
         words = line.split()
         lut.append([int(x) for x in words])
 
 # Read an image
-filename = 'jared.jpeg'
-# filename = 'green.png'
+# filename = '4.1.03.tiff' 
+filename = '4103_crop.tiff'
+# filename = '4103_crop.png'
+# filename = 'jared.jpeg'
 # filename = 'biden.jpg'
 img = cv2.imread(filename)
 processed = 0
@@ -64,15 +64,16 @@ Kernel = np.array([[1,  4,  7,  4, 1],
                    [4, 16, 26, 16, 4],
                    [1,  4,  7,  4, 1]])
 
-# Pad the image with zeros # Oliver: this ends up causing white edges on the image. A flaw of their algorithm.
-I = np.pad(img, ((2, 2), (2, 2), (0, 0)), mode='constant', constant_values=0)
+# Pad the image with zeros # Oliver Note: this ends up causing white edges on the image. A flaw of their algorithm.
+# I = np.pad(img, ((2, 2), (2, 2), (0, 0)), mode='constant', constant_values=0)
+# Pad the image with edge values # Oliver Note: this is better
+I = np.pad(img, ((2, 2), (2, 2), (0, 0)), mode='edge')
 # Initialize output arrays
 output_accurate = np.zeros(I.shape, dtype=float)
 output_approx = np.zeros(I.shape, dtype=float)
 iy, ix, icolor = img.shape
 y, x, color = I.shape
 
-print()
 
 #  Convolution
 for color_channel in range(color):
@@ -97,16 +98,14 @@ for color_channel in range(color):
             ky, lx = Img_section.shape
             for k in range(ky):
                 for l in range(lx):
-                    accumulator = accumulator + lut[Img_section[k][l]][Kernel[k][l]]
+                    # accumulator = accumulator + lut[Img_section[k][l]][Kernel[k][l]]
+                    accumulator = accumulator + lut[Kernel[k][l]][Img_section[k][l]]
             output_accurate[i, j, color_channel] = 2 * I[i, j, color_channel] - temp_accumulate_acc / 273
             output_approx[i, j, color_channel] = 2 * I[i, j, color_channel] - accumulator / 273
 
         processed += ix
         # print("Processed Pixels: %d; %d%% Done" % (processed, math.ceil(100*(float(processed)/(x*y*3)))), end="\r")
         print("Processed Pixels: %d; %d%% Done" % (processed, int(100*(float(processed)/(ix*iy*icolor)))), end="\r")
-            
-            
-
 
 # Unpadding (removing 2 rows & 2 colomns of zeros from each side)
 output_acc = output_accurate[2:I.shape[0]-2, 2:I.shape[1]-2, :]
@@ -128,10 +127,8 @@ print('\nOriginal, Exact Sharpen, Approx Sharpen')
 cv2.namedWindow("results", cv2.WINDOW_NORMAL) 
 # cv2.resizeWindow("results", 1920, 1080)
 cv2.imshow("results", res)
-cv2.imshow("apprx", output_app)
+# cv2.imshow("apprx", output_app)
 # Resize the Window
-
-
 
 # Calculate PSNR and SSIM
 psnr = cv2.PSNR(output_acc, output_app)
@@ -144,7 +141,6 @@ cv2.imwrite('accurate_sharp.bmp', output_acc)
 cv2.imwrite('approx_sharp.bmp', output_app)
 while cv2.getWindowProperty('results', 0) >= 0:
     keyCode = cv2.waitKey(50)
-
 
 cv2.destroyAllWindows()
 # cv2.waitKey(1)
