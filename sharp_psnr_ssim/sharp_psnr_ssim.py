@@ -1,7 +1,8 @@
 # Oliver Huang, Jared Yoder
-# Spring 2024
+# EE 478/526, Spring 2024
 # Image Sharpening Algorithm for Approximate Multiplier benchmark
 # Adapted from matlab code provided by the HPAM researchers
+# Sharpening method used: https://homepages.inf.ed.ac.uk/rbf/HIPR2/unsharp.htm 
 # python3 ./sharp_psnr_ssim.py
 
 import cv2 #pip3 install opencv-python==4.3.0.38 --user
@@ -19,12 +20,8 @@ from tqdm import tqdm
 from skimage.util import random_noise 
 
 signal.signal(signal.SIGINT, signal.SIG_DFL) #enable control c
-lut4 = []
-lut2 = []
-lutW = []
-lutname4 = 'LUT4.txt'
-lutname2 = 'LUT2.txt'
-lutnameW = 'LUTW.txt'
+lut4, lut2, lutW = [], [], []
+lutname4, lutname2, lutnameW = 'LUT4.txt', 'LUT2.txt', 'LUTW.txt'
 with open(lutname4) as f4:
     for line in f4:
         words = line.split()
@@ -72,7 +69,8 @@ print("Input image: %s" % filename)
 
 # noisy_img = skimage.img_as_ubyte(random_noise(img, mode='gaussian', seed=None, clip=True))
 
-# Kernel
+# Gaussian Kernel with mean = 0 & sigma = 1
+# reference : https://homepages.inf.ed.ac.uk/rbf/HIPR2/gsmooth.htm
 Kernel = np.array([[1,  4,  7,  4, 1],
                    [4, 16, 26, 16, 4],
                    [7, 26, 41, 26, 7],
@@ -91,7 +89,6 @@ output_wallace = np.zeros(I.shape, dtype=float)
 
 iy, ix, icolor = img.shape
 y, x, color = I.shape
-
 
 #  Convolution
 for color_channel in range(color):
@@ -135,7 +132,6 @@ for color_channel in range(color):
             output_wallace[i, j, color_channel] = 2 * I[i, j, color_channel] - accumulatorW / 273
 
         processed += ix
-        # print("Processed Pixels: %d; %d%% Done" % (processed, math.ceil(100*(float(processed)/(x*y*3)))), end="\r")
         print("Processed Pixels: %d; %d%% Done" % (processed, int(100*(float(processed)/(ix*iy*icolor)))), end="\r")
 
 # Unpadding (removing 2 rows & 2 colomns of zeros from each side)
@@ -177,9 +173,9 @@ print("|    Peak Signal to Noise Ratio     |")
 print("|-----------------------------------|")
 print("| PSNR   HPAM4:   %.14f" % psnr4,  "|") 
 print("| PSNR   HPAM2:   %.14f" % psnr2,  "|")
-print("| PSNR Wallace:  %.14f"  % psnrW,  "|") #OpenCV prevents divide by 0 and has no 'Inf' so identical images will have PSNR of 361.20199909921956
-print("|-----------------------------------|")
-print("|Structural Similarity Index Measure|")
+print("| PSNR Wallace:  %.14f"  % psnrW,  "|") # OpenCV prevents divide by 0 and has no 'Inf', 
+print("|-----------------------------------|") # so identical images will have PSNR of 361.20199909921956
+print("|Structural Similarity Index Measure|") # reference: https://stackoverflow.com/a/61847143 
 print("|-----------------------------------|")
 print("| SSIM   HPAM4:  %.16f" % ssim4,   "|")
 print("| SSIM   HPAM2:  %.16f" % ssim2,   "|")
